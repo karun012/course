@@ -72,8 +72,8 @@ headOr ::
   a
   -> List a
   -> a
-headOr =
-  error "todo"
+headOr x (y :. _) = y
+headOr x Nil = x
 
 -- | The product of the elements of a list.
 --
@@ -85,8 +85,7 @@ headOr =
 product ::
   List Int
   -> Int
-product =
-  error "todo"
+product = foldLeft (*) 1
 
 -- | Sum the elements of the list.
 --
@@ -100,8 +99,7 @@ product =
 sum ::
   List Int
   -> Int
-sum =
-  error "todo"
+sum = foldLeft (+) 0
 
 -- | Return the length of the list.
 --
