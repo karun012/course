@@ -142,8 +142,8 @@ filter ::
   (a -> Bool)
   -> List a
   -> List a
-filter =
-  error "todo"
+filter _ Nil = Nil
+filter f (x :. y) = if f x then (x :. filter f y) else (filter f y)
 
 -- | Append two lists to a new list.
 --
