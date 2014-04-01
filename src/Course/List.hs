@@ -161,8 +161,7 @@ filter f (x :. y) = if f x then (x :. filter f y) else (filter f y)
   List a
   -> List a
   -> List a
-(++) =
-  error "todo"
+(++) xs ys = foldRight (\y zs -> y :. zs) ys xs
 
 infixr 5 ++
 
@@ -179,8 +178,7 @@ infixr 5 ++
 flatten ::
   List (List a)
   -> List a
-flatten =
-  error "todo"
+flatten = foldRight (++) Nil
 
 -- | Map a function then flatten to a list.
 --
@@ -196,8 +194,7 @@ flatMap ::
   (a -> List b)
   -> List a
   -> List b
-flatMap =
-  error "todo"
+flatMap f xs = flatten (map f xs)
 
 -- | Convert a list of optional values to an optional list of values.
 --
