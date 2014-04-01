@@ -110,8 +110,8 @@ sum = foldLeft (+) 0
 length ::
   List a
   -> Int
-length =
-  error "todo"
+length Nil = 0
+length (x :. y) = 1 + length y
 
 -- | Map the given function on each element of the list.
 --
@@ -125,8 +125,8 @@ map ::
   (a -> b)
   -> List a
   -> List b
-map =
-  error "todo"
+map _ Nil = Nil
+map f (x :. y) = f x :. map f y
 
 -- | Return elements satisfying the given predicate.
 --
