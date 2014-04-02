@@ -143,7 +143,10 @@ filter ::
   -> List a
   -> List a
 filter _ Nil = Nil
-filter f (x :. y) = if f x then (x :. filter f y) else (filter f y)
+filter f (x :. y) = 
+    case f x of
+    True -> (x :. filter f y)
+    _ -> filter f y
 
 -- | Append two lists to a new list.
 --
@@ -244,8 +247,10 @@ find ::
   (a -> Bool)
   -> List a
   -> Optional a
-find =
-  error "todo"
+find f xs = 
+    case filter f xs of
+    Nil -> Empty
+    (x :. y) -> Full(x)
 
 -- | Determine if the length of the given list is greater than 4.
 --
@@ -263,8 +268,10 @@ find =
 lengthGT4 ::
   List a
   -> Bool
-lengthGT4 =
-  error "todo"
+lengthGT4 xs =
+    case length xs of 
+    4 -> True
+    _ -> False
 
 -- | Reverse a list.
 --
@@ -277,8 +284,7 @@ lengthGT4 =
 reverse ::
   List a
   -> List a
-reverse =
-  error "todo"
+reverse xs = foldLeft(\zs x -> x :. zs) Nil xs
 
 -- | Produce an infinite `List` that seeds with the given value at its head,
 -- then runs the given function for subsequent elements
