@@ -269,8 +269,8 @@ lengthGT4 ::
   List a
   -> Bool
 lengthGT4 xs =
-    case length xs of 
-    4 -> True
+    case xs of 
+    (x :. y :. a :. b :. _) -> True
     _ -> False
 
 -- | Reverse a list.
