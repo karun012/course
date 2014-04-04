@@ -110,8 +110,9 @@ sum = foldLeft (+) 0
 length ::
   List a
   -> Int
-length Nil = 0
-length (x :. y) = 1 + length y
+-- length Nil = 0
+-- length (x :. y) = 1 + length y
+length xs = sum (map (\x -> 1) xs)
 
 -- | Map the given function on each element of the list.
 --
