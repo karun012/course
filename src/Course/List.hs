@@ -165,7 +165,7 @@ filter f (x :. y) =
   List a
   -> List a
   -> List a
-(++) xs ys = foldRight (\y zs -> y :. zs) ys xs
+(++) xs ys = foldRight (:.) ys xs
 
 infixr 5 ++
 
