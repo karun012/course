@@ -55,7 +55,7 @@ instance Functor Optional where
 -- >>> ((+1) <$> (*2)) 8
 -- 17
 instance Functor ((->) t) where
-  (<$>) f g = f . g
+  (<$>) = (.)
 
 -- | Anonymous map. Maps a constant value on a functor.
 --
