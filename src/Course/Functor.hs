@@ -70,7 +70,7 @@ instance Functor ((->) t) where
   a
   -> f b
   -> f a
-(<$) f xs = (const f) <$> xs
+(<$) = (<$>) . const
 
 -- | Anonymous map producing unit value.
 --
