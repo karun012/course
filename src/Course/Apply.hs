@@ -24,7 +24,7 @@ infixl 4 <*>
 -- >>> Id (+10) <*> Id 8
 -- Id 18
 instance Apply Id where
-  (<*>) x y = runId x <$> y
+  (<*>) (Id fn) a = fn <$> a
 
 -- | Implement @Apply@ instance for @List@.
 --
