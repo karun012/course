@@ -38,7 +38,7 @@ instance Functor Id where
 -- >>> (+1) <$> (1 :. 2 :. 3 :. Nil)
 -- [2,3,4]
 instance Functor List where
-  (<$>) fn xs = map fn xs
+  (<$>) = map
 
 -- | Maps a function on the Optional functor.
 --
@@ -48,7 +48,7 @@ instance Functor List where
 -- >>> (+1) <$> Full 2
 -- Full 3
 instance Functor Optional where
-  (<$>) fn x = mapOptional fn x
+  (<$>) = mapOptional
 
 -- | Maps a function on the reader ((->) t) functor.
 --
