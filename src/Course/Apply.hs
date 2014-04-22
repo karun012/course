@@ -64,8 +64,7 @@ instance Apply Optional where
 -- >>> ((*) <*> (+2)) 3
 -- 15
 instance Apply ((->) t) where
-  (<*>) =
-    error "todo"
+  (<*>) f x y = (<$>) (f y) x y
 
 -- | Apply a binary function in the environment.
 --
