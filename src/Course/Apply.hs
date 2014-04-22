@@ -91,8 +91,7 @@ lift2 ::
   -> f a
   -> f b
   -> f c
-lift2 =
-  error "todo"
+lift2 f xs ys = (f <$> xs) <*> ys
 
 -- | Apply a ternary function in the Monad environment.
 --
@@ -123,8 +122,7 @@ lift3 ::
   -> f b
   -> f c
   -> f d
-lift3 =
-  error "todo"
+lift3 f xs ys zs = lift2 f xs ys <*> zs
 
 -- | Apply a quaternary function in the environment.
 --
@@ -156,8 +154,7 @@ lift4 ::
   -> f c
   -> f d
   -> f e
-lift4 =
-  error "todo"
+lift4 f x y z a = lift3 f x y z <*> a
 
 -- | Sequence, discarding the value of the first argument.
 -- Pronounced, right apply.
@@ -183,7 +180,7 @@ lift4 =
   -> f b
   -> f b
 (*>) =
-  error "todo"
+    error "todo"
 
 -- | Sequence, discarding the value of the second argument.
 -- Pronounced, left apply.
