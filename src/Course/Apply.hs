@@ -31,8 +31,7 @@ instance Apply Id where
 -- >>> (+1) :. (*2) :. Nil <*> 1 :. 2 :. 3 :. Nil
 -- [2,3,4,2,4,6]
 instance Apply List where
-  (<*>) =
-    error "todo"
+  (<*>) fs xs = listh [f x | f <- hlist fs, x <- hlist xs]
 
 -- | Implement @Apply@ instance for @Optional@.
 --
@@ -45,8 +44,8 @@ instance Apply List where
 -- >>> Full (+8) <*> Empty
 -- Empty
 instance Apply Optional where
-  (<*>) =
-    error "todo"
+  (<*>) Empty _ = Empty
+  (<*>) (Full f) a = f <$> a
 
 -- | Implement @Apply@ instance for reader.
 --
