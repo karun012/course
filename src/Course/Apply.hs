@@ -179,7 +179,7 @@ lift4 f x y z a = lift3 f x y z <*> a
   f a
   -> f b
   -> f b
-(*>) xs ys = lift2 (const (\x -> x)) xs ys
+(*>) = lift2 (const id) 
 
 -- | Sequence, discarding the value of the second argument.
 -- Pronounced, left apply.
@@ -204,7 +204,7 @@ lift4 f x y z a = lift3 f x y z <*> a
   f b
   -> f a
   -> f b
-(<*) = lift2 (const)
+(<*) = lift2 const
 
 -----------------------
 -- SUPPORT LIBRARIES --
