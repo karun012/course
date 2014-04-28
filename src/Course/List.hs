@@ -225,8 +225,7 @@ flatMap f xs = flatten (map f xs)
 seqOptional ::
   List (Optional a)
   -> Optional (List a)
-seqOptional =
-  error "todo"
+seqOptional = foldRight(twiceOptional (:.)) (Full Nil)
 
 -- | Find the first element in the list matching the predicate.
 --
