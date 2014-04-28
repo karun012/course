@@ -43,19 +43,19 @@ class Apply f => Applicative f where
 --
 -- prop> pure x == Id x
 instance Applicative Id where
-  pure x = Id(x)
+  pure = Id
 
 -- | Insert into a List.
 --
 -- prop> pure x == x :. Nil
 instance Applicative List where
-  pure x = listh [x]
+  pure = (:. Nil)
 
 -- | Insert into an Optional.
 --
 -- prop> pure x == Full x
 instance Applicative Optional where
-  pure x = Full(x)
+  pure = Full
 
 -- | Insert into a constant function.
 --
