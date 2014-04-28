@@ -107,8 +107,7 @@ replicateA ::
   Int
   -> f a
   -> f (List a)
-replicateA =
-    error "todo"
+replicateA n = sequence . replicate n
 
 -- | Filter a list with a predicate that produces an effect.
 --
@@ -131,8 +130,8 @@ filtering ::
   (a -> f Bool)
   -> List a
   -> f (List a)
-filtering =
-  error "todo"
+filtering = 
+    error "todo"
 
 -----------------------
 -- SUPPORT LIBRARIES --
