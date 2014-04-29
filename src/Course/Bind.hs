@@ -62,8 +62,7 @@ infixr 1 =<<
   f (a -> b)
   -> f a
   -> f b
-(<*>) =
-  error "todo"
+(<*>) = (<*>)
 
 infixl 4 <*>
 
@@ -72,8 +71,7 @@ infixl 4 <*>
 -- >>> (\x -> Id(x+1)) =<< Id 2
 -- Id 3
 instance Bind Id where
-  (=<<) =
-    error "todo"
+  (=<<) fn (Id a) = fn a
 
 -- | Binds a function on a List.
 --
