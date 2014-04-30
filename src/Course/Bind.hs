@@ -124,8 +124,7 @@ join = (=<<) id
   f a
   -> (a -> f b)
   -> f b
-(>>=) =
-  error "todo"
+(>>=) x f = join ((<$>) f x)
 
 infixl 1 >>=
 
@@ -140,8 +139,7 @@ infixl 1 >>=
   -> (a -> f b)
   -> a
   -> f c
-(<=<) =
-  error "todo"
+(<=<) f g a = (=<<) f (g a)
 
 infixr 1 <=<
 
