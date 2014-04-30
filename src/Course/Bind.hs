@@ -92,8 +92,7 @@ instance Bind Optional where
 -- >>> ((*) =<< (+10)) 7
 -- 119
 instance Bind ((->) t) where
-  (=<<) =
-    error "todo"
+  (=<<) f g y = f (g y) y
 
 -- | Flattens a combined structure to a single structure.
 --
