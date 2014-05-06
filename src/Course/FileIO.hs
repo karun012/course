@@ -62,8 +62,9 @@ the contents of c
 -- /Tip:/ use @getArgs@ and @run@
 main ::
   IO ()
-main =
-  error "todo"
+main = do
+    args <- getArgs
+    run (headOr Nil args)
 
 type FilePath =
   Chars
@@ -72,31 +73,36 @@ type FilePath =
 run ::
   Chars
   -> IO ()
-run =
-  error "todo"
+run args = printFiles =<< (getFiles . lines) =<< readFile args 
+-- Feels imperative
+-- do
+--    fileNamesSeparatedByNewLine <- readFile args
+--    files <- getFiles (lines fileNamesSeparatedByNewLine)
+--    printFiles files
 
 getFiles ::
   List FilePath
   -> IO (List (FilePath, Chars))
-getFiles =
-  error "todo"
+getFiles = sequence . (<$>) getFile
 
 getFile ::
   FilePath
   -> IO (FilePath, Chars)
-getFile =
-  error "todo"
+getFile filePath = lift2 (<$>) (,) readFile filePath
+-- Feels imperative
+--    do
+--    contents <- readFile filePath
+--    pure (filePath, contents)
 
 printFiles ::
   List (FilePath, Chars)
   -> IO ()
-printFiles =
-  error "todo"
+printFiles (x :. y) = void (sequence ((uncurry printFile x) :. (printFiles y) :. Nil))
+printFiles Nil = void (pure Nil)
 
 printFile ::
   FilePath
   -> Chars
   -> IO ()
-printFile =
-  error "todo"
+printFile filePath contents = putStrLn ("============ " ++ filePath ++ "\n" ++ contents)
 
