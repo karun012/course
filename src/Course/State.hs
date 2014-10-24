@@ -35,29 +35,33 @@ newtype State s a =
 -- >>> runState ((+1) <$> pure 0) 0
 -- (1,0)
 instance Functor (State s) where
-  (<$>) =
-      error "todo"
+  (<$>) f (State h) = State $ \s -> let (a, newState) = h s
+                                        b = f a
+                                        in (b, newState)
 
 -- | Implement the `Apply` instance for `State s`.
 -- >>> runState (pure (+1) <*> pure 0) 0
 -- (1,0)
 instance Apply (State s) where
-  (<*>) =
-    error "todo"
+  (<*>) g (State h) = State $ \s -> let (a, newState) = h s
+                                        (f, x) = runState g s
+                                        b = f a
+                                        in (b, newState)
 
 -- | Implement the `Applicative` instance for `State s`.
 -- >>> runState (pure 2) 0
 -- (2,0)
 instance Applicative (State s) where
-  pure =
-    error "todo"
+  pure x = State (\b -> (x, b))
 
 -- | Implement the `Bind` instance for `State s`.
 -- >>> runState ((const $ put 2) =<< put 1) 0
 -- ((),2)
 instance Bind (State s) where
-  (=<<) =
-    error "todo"
+  (=<<) f (State h) = State $ \s -> let (a, newState) = h s
+                                        (b, _) = runState (f a) s
+                                        in (b, newState)
+                                        
 
 instance Monad (State s) where
 
@@ -87,8 +91,7 @@ eval =
 -- (0,0)
 get ::
   State s s
-get =
-  error "todo"
+get = State $ \s -> (s, s)
 
 -- | A `State` where the resulting state is seeded with the given value.
 --
@@ -97,8 +100,7 @@ get =
 put ::
   s
   -> State s ()
-put =
-  error "todo"
+put g = State $ \_ -> ((), g)
 
 -- | Find the first element in a `List` that satisfies a given predicate.
 -- It is possible that no element is found, hence an `Optional` result.
