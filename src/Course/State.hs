@@ -72,8 +72,8 @@ exec ::
   State s a
   -> s
   -> s
-exec =
-  error "todo"
+exec stateComp initValue = let (_, resultingState) = runState stateComp initValue
+                               in resultingState
 
 -- | Run the `State` seeded with `s` and retrieve the resulting value.
 --
@@ -82,8 +82,8 @@ eval ::
   State s a
   -> s
   -> a
-eval =
-  error "todo"
+eval stateComp initValue = let (resultingValue, _) = runState stateComp initValue
+                               in resultingValue
 
 -- | A `State` where the state also distributes into the produced value.
 --
