@@ -130,8 +130,7 @@ filtering ::
   (a -> f Bool)
   -> List a
   -> f (List a)
-filtering = 
-    error "todo"
+filtering predicate = foldRight (\a -> lift2 (\b -> if b then (a :.) else id) (predicate a)) (pure Nil)
 
 -----------------------
 -- SUPPORT LIBRARIES --
