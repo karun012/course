@@ -61,7 +61,7 @@ instance Bind (State s) where
   (=<<) f (State h) = State $ \s -> let (a, newState) = h s
                                         (b, _) = runState (f a) s
                                         in (b, newState)
-                                        
+
 
 instance Monad (State s) where
 
