@@ -121,8 +121,8 @@ findM ::
   (a -> f Bool)
   -> List a
   -> f (Optional a)
-findM =
-  error "todo"
+findM _ Nil = pure (Empty)
+findM predicate (x :. xs) = (\a -> if a then pure (Full x) else findM predicate xs) =<< (predicate x)
 
 -- | Find the first element in a `List` that repeats.
 -- It is possible that no element repeats, hence an `Optional` result.
