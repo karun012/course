@@ -72,7 +72,7 @@ headOr ::
   a
   -> List a
   -> a
-headOr x (y :. _) = y
+headOr _ (y :. _) = y
 headOr x Nil = x
 
 -- | The product of the elements of a list.
@@ -112,7 +112,7 @@ length ::
   -> Int
 -- length Nil = 0
 -- length (x :. y) = 1 + length y
-length xs = sum (map (\x -> 1) xs)
+length xs = sum (map (\_ -> 1) xs)
 
 -- | Map the given function on each element of the list.
 --
@@ -250,7 +250,7 @@ find ::
 find f xs = 
     case filter f xs of
     Nil -> Empty
-    (x :. y) -> Full(x)
+    (x :. _) -> Full(x)
 
 -- | Determine if the length of the given list is greater than 4.
 --
@@ -270,7 +270,7 @@ lengthGT4 ::
   -> Bool
 lengthGT4 xs =
     case xs of 
-    (x :. y :. a :. b :. _) -> True
+    (_ :. _ :. _ :. _ :. _) -> True
     _ -> False
 
 -- | Reverse a list.
