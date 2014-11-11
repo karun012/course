@@ -149,8 +149,9 @@ distinct ::
   Ord a =>
   List a
   -> List a
-distinct =
-  error "todo"
+distinct xs = let predicate x = (\s -> (const $ pure (not $ (S.member) x s)) =<< put(x `S.insert` s)) =<< get
+                  (_, finalState) = runState (filtering predicate xs) S.empty
+              in (listh . S.toList) finalState
 
 -- | A happy number is a positive integer, where the sum of the square of its digits eventually reaches 1 after repetition.
 -- In contrast, a sad number (not a happy number) is where the sum of the square of its digits never reaches 1
