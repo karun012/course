@@ -59,8 +59,8 @@ instance Applicative (State s) where
 -- ((),2)
 instance Bind (State s) where
   (=<<) f (State h) = State $ \s -> let (a, newState) = h s
-                                        (b, _) = runState (f a) s
-                                        in (b, newState)
+                                        (State s') = f a
+                                        in s' newState
 
 
 instance Monad (State s) where
@@ -135,8 +135,9 @@ firstRepeat ::
   Ord a =>
   List a
   -> Optional a
-firstRepeat =
-  error "todo"
+firstRepeat xs = let predicate x = (\s -> (const $ pure (x `S.member` s)) =<< put(x `S.insert` s)) =<< get
+                     (finalValue, _) = runState (findM predicate xs) S.empty
+                 in finalValue
 
 -- | Remove all duplicate elements in a `List`.
 -- /Tip:/ Use `filtering` and `State` with a @Data.Set#Set@.
