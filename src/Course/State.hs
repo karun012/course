@@ -136,8 +136,7 @@ firstRepeat ::
   List a
   -> Optional a
 firstRepeat xs = let predicate x = (\s -> (const $ pure (x `S.member` s)) =<< put(x `S.insert` s)) =<< get
-                     (finalValue, _) = runState (findM predicate xs) S.empty
-                 in finalValue
+                 in eval (findM predicate xs) S.empty
 
 -- | Remove all duplicate elements in a `List`.
 -- /Tip:/ Use `filtering` and `State` with a @Data.Set#Set@.
@@ -150,8 +149,7 @@ distinct ::
   List a
   -> List a
 distinct xs = let predicate x = (\s -> (const $ pure (not $ (S.member) x s)) =<< put(x `S.insert` s)) =<< get
-                  (_, finalState) = runState (filtering predicate xs) S.empty
-              in (listh . S.toList) finalState
+              in (listh . S.toList) $ exec (filtering predicate xs) S.empty
 
 -- | A happy number is a positive integer, where the sum of the square of its digits eventually reaches 1 after repetition.
 -- In contrast, a sad number (not a happy number) is where the sum of the square of its digits never reaches 1
