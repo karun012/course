@@ -225,7 +225,13 @@ flatMap f xs = flatten (map f xs)
 seqOptional ::
   List (Optional a)
   -> Optional (List a)
-seqOptional = foldRight(twiceOptional (:.)) (Full Nil)
+seqOptional xs = let empty = \s -> case s of
+                                       Empty -> True
+                                       _ -> False
+                     empties = filter empty xs
+                 in case empties of
+                      Nil -> Full $ map (\(Full a) -> a) xs
+                      _ -> Empty
 
 -- | Find the first element in the list matching the predicate.
 --
