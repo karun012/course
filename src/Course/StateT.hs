@@ -30,8 +30,8 @@ newtype StateT s f a =
 -- >>> runStateT ((+1) <$> (pure 2) :: StateT Int List Int) 0
 -- [(3,0)]
 instance Functor f => Functor (StateT s f) where
-  (<$>) =
-    error "todo"
+  (<$>) f (StateT h) = StateT (\st -> let tupleInContext = h st
+                                      in (\(x, y) -> (f x, y)) <$> tupleInContext)
 
 -- | Implement the `Apply` instance for @StateT s f@ given a @Bind f@.
 --
