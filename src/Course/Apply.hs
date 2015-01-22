@@ -31,7 +31,7 @@ instance Apply Id where
 -- >>> (+1) :. (*2) :. Nil <*> 1 :. 2 :. 3 :. Nil
 -- [2,3,4,2,4,6]
 instance Apply List where
-  (<*>) fs xs = listh [f x | f <- hlist fs, x <- hlist xs]
+  (<*>) fs xs = flatMap (flip map xs) fs
 
 -- | Implement @Apply@ instance for @Optional@.
 --
